@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import BookShelve from './BookShelve'
 import { Link } from 'react-router-dom'
+
+import BookShelf from './BookShelf'
 
 class BookList extends Component {
 
@@ -23,7 +24,7 @@ class BookList extends Component {
 
   render() {
     const { shelves } = this.state
-    const { books } = this.props
+    const { books, moveBookToShelf } = this.props
 
     return(
       <div className="list-books">
@@ -31,11 +32,12 @@ class BookList extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          {shelves.map(shelve => (
-            <BookShelve
-              key={shelve.id}
+          {shelves.map(shelf => (
+            <BookShelf
+              key={shelf.id}
               books={books}
-              shelve={shelve}
+              shelf={shelf}
+              moveBookToShelf={moveBookToShelf}
             />
           ))}
         </div>

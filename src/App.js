@@ -14,12 +14,27 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      console.log(books)
       this.setState({
         books: books
       });
     })
   }
+
+  moveBookToShelf = (book, toShelf) => (
+    this.setState(state => {
+      return (
+        {
+          ...state,
+          books: state.books.map(b => {
+            if (b.id === book.id) {
+              b.shelf = toShelf
+            }
+            return b
+          })
+        }
+      )
+    })
+  )
 
   render() {
     const { books } = this.state
@@ -32,6 +47,7 @@ class BooksApp extends React.Component {
         <Route exact path="/" render={() => (
           <BookList
             books={books}
+            moveBookToShelf={this.moveBookToShelf}
           />
         )} />
       </div>
