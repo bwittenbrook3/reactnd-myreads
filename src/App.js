@@ -14,16 +14,11 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      if (books) {
-        this.setState({
-          books: books
-        });
-      }
+      this.setState({ books: books });
     })
   }
 
   moveBookToShelf = (book, toShelf) => {
-    console.log(book)
     this.setState(state => {
       let { books } = state
 
@@ -40,13 +35,13 @@ class BooksApp extends React.Component {
         return b
       })
 
+      BooksAPI.update(book, toShelf)
 
-      return (
-        {
-          ...state,
-          books: books
-        }
-      )
+      // Return the new state
+      return {
+        ...state,
+        books: books
+      }
     })
   }
 

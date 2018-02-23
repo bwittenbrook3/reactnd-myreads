@@ -20,9 +20,11 @@ class BookSearch extends Component {
     })
 
     BooksAPI.search(query).then(books => {
-      this.setState({
-        search_results: books.map(book => this.updateBookShelf(book))
-      })
+      if (!books.error) {
+        this.setState({
+          search_results: books.map(book => this.updateBookShelf(book))
+        })
+      }
     })
   }
 
